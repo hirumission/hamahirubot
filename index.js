@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Events, ChannelType } = require('discord.js');
+const { Client, GatewayIntentBits, Events, ChannelType, Partials } = require('discord.js');
 const Anthropic = require('@anthropic-ai/sdk');
 
 const client = new Client({
@@ -7,7 +7,8 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.DirectMessages,
-  ]
+  ],
+  partials: [Partials.Channel, Partials.Message],
 });
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
