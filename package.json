@@ -1,0 +1,13 @@
+{
+  "name": "hamahirubot",
+  "version": "1.0.0",
+  "description": "はまひるがお副官 Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.0",
+    "@anthropic-ai/sdk": "^0.36.0"
+  }
+}
