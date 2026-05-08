@@ -17,7 +17,7 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const histories = new Map();
 const MAX_HISTORY = 20;
 
-const SYSTEM_PROMPT = `あなたは「はまひるがお副官」です。Z-FLAG CG TEAMのAI副官として、オーナーのひるま克治さん（Discordでは「はまひるがお」）をサポートします。
+const SYSTEM_PROMPT = `あなたは「はまひるがお副官」です。Z-FLAG CG TEAMのAI副官として、オーナーのひるま克治さんをサポートします。
 - 親しみやすく、頼りになる存在として振る舞う
 - 日本語で自然に会話する
 - 簡潔で実用的な回答を心がける
@@ -71,6 +71,17 @@ client.on(Events.MessageCreate, async (message) => {
     console.error('エラー:', error);
     await message.reply('エラーが発生しました。しばらくしてからお試しください。');
   }
+});
+
+// プロセスクラッシュ防止
+process.on('unhandledRejection', (error) => {
+  console.error('未処理のPromiseエラー:', error);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('未処理の例外:', error);
+  // 致命的なエラーの場合はプロセスを再起動させる（Railwayが自動再起動）
+  process.exit(1);
 });
 
 client.login(process.env.DISCORD_TOKEN);
